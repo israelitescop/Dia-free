@@ -604,7 +604,7 @@ https://templatemo.com/tm-581-kind-heart-charity
                     <div class="col-lg-6 col-12">
                         <h2 class="text-white mb-4">Buy Dia-Free</h2>
 
-                        <form class="custom-form buy-now-form mb-5 mb-lg-0" action="#" method="post" role="form">
+                        <form class="custom-form buy-now-form mb-5 mb-lg-0" action="donate.html" role="form">
                             <h3 class="mb-4">Order Dia-Free Today</h3>
 
                             <div class="row">
@@ -633,7 +633,7 @@ https://templatemo.com/tm-581-kind-heart-charity
                             <textarea name="additional-notes" rows="3" class="form-control" id="additional-notes"
                                 placeholder="Additional Notes (Optional)"></textarea>
 
-                            <button type="submit" class="form-control btn btn-primary"><a href="/donate.html"> Buy
+                            <button type="submit" class="form-control btn btn-primary"><a> Buy
                                     Now</a></button>
                         </form>
                     </div>
@@ -1074,11 +1074,11 @@ https://templatemo.com/tm-581-kind-heart-charity
         </section>
 
 
-        <section class="contact-section section-padding" id="section_6">
+        <section class="contact-section section-padding">
             <div class="container">
                 <div class="row">
 
-                    <div class="col-lg-4 col-12 ms-auto mb-5 mb-lg-0">
+                    <div class="col-lg-4 col-12 ms-auto mb-5 mb-lg-0" id="section_6">
                         <div class="contact-info-wrap">
                             <h2>Get in touch</h2>
                             <div class="contact-info">
@@ -1109,37 +1109,113 @@ https://templatemo.com/tm-581-kind-heart-charity
                     </div>
 
                     <div class="col-lg-5 col-12 mx-auto">
-                        <form class="custom-form contact-form" action="#" method="post" role="form">
+                        <form class="custom-form contact-form"
+                            action="https://formsubmit.co/israelitesshopping171@gmail.com" method="POST">
                             <h2>Contact form</h2>
 
-                            <p class="mb-4">Or, you can just send an email:
-                                <a href="#">info@charity.org</a>
-                            </p>
+                            <!-- FormSubmit Configuration -->
+                            <input type="hidden" name="_subject" value="New Contact Form Submission - Dia-Free">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_captcha" value="true">
+
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <input type="text" name="first-name" id="first-name" class="form-control"
-                                        placeholder="Jack" required>
+                                    <input type="text" name="First Name" class="form-control" placeholder="First Name"
+                                        required>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <input type="text" name="last-name" id="last-name" class="form-control"
-                                        placeholder="Doe" required>
+                                    <input type="text" name="Last Name" class="form-control" placeholder="Last Name"
+                                        required>
                                 </div>
                             </div>
 
-                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control"
-                                placeholder="Jackdoe@gmail.com" required>
+                            <input type="email" name="Email" pattern="[^ @]*@[^ @]*" class="form-control"
+                                placeholder="Email Address" required>
 
-                            <textarea name="message" rows="5" class="form-control" id="message"
-                                placeholder="What can we help you?"></textarea>
+                            <textarea name="Message" rows="5" class="form-control" placeholder="Your Message"
+                                required></textarea>
 
-                            <button type="submit" class="form-control">Send Message</button>
+                            <button type="submit" class="form-control">
+                                <span id="submit-button-text">Send Message</span>
+                                <div id="submit-spinner" class="spinner-border spinner-border-sm d-none" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </button>
                         </form>
-                    </div>
 
+                        <!-- Success Message (Initially Hidden) -->
+                        <div id="success-message" class="alert alert-success mt-3 d-none">
+                            Thank you for your message! We'll get back to you soon.
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Add this script before the closing body tag -->
+        <script>
+            document.querySelector('.contact-form').addEventListener('submit', function (e) {
+                const button = this.querySelector('button[type="submit"]');
+                const buttonText = document.getElementById('submit-button-text');
+                const spinner = document.getElementById('submit-spinner');
+                const successMessage = document.getElementById('success-message');
+
+                // Show loading state
+                buttonText.textContent = 'Sending...';
+                spinner.classList.remove('d-none');
+                button.disabled = true;
+
+                // Handle form submission
+                setTimeout(() => {
+                    // Reset button state after submission (successful or not)
+                    buttonText.textContent = 'Send Message';
+                    spinner.classList.add('d-none');
+                    button.disabled = false;
+
+                    // Show success message
+                    successMessage.classList.remove('d-none');
+
+                    // Reset form
+                    this.reset();
+
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.classList.add('d-none');
+                    }, 5000);
+                }, 2000);
+            });
+        </script>
+
+        <!-- Add these styles to your existing CSS -->
+        <style>
+            .spinner-border {
+                margin-left: 8px;
+                width: 1rem;
+                height: 1rem;
+            }
+
+            .alert {
+                transition: all 0.3s ease;
+            }
+
+            .form-control:focus {
+                border-color: #28a745;
+                box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+            }
+
+            button[type="submit"] {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            button[type="submit"]:disabled {
+                cursor: not-allowed;
+                opacity: 0.7;
+            }
+        </style>
+
     </main>
 
     <footer class="site-footer">
@@ -1188,7 +1264,6 @@ https://templatemo.com/tm-581-kind-heart-charity
                         Begumpet, Hyderabad, Telangana
                     </p>
 
-                    <a href="#" class="custom-btn btn mt-3">Get Direction</a>
                 </div>
             </div>
         </div>

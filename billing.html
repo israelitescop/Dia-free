@@ -9,6 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link href="css/templatemo-kind-heart-charity.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -139,11 +140,11 @@
                                 <div class="price-details">
                                     <div class="d-flex justify-content-between mb-2">
                                         <span>Price per unit:</span>
-                                        <span>$50.00</span>
+                                        <span>$3990.00</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <span>Subtotal:</span>
-                                        <span id="subtotal">$0.00</span>
+                                        <span id="subtotal">₹0.00</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <span>Shipping:</span>
@@ -151,7 +152,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between pt-3 border-top mt-3">
                                         <strong>Total Amount:</strong>
-                                        <strong class="text-primary">$<span id="total-amount">0.00</span></strong>
+                                        <strong class="text-primary">₹<span id="total-amount">0.00</span></strong>
                                     </div>
                                 </div>
                             </div>
@@ -225,6 +226,12 @@
                                     </div>
                                 </div>
                             </form>
+                            <div id="loading-overlay" class="loading-overlay d-none">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Processing your order...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -374,6 +381,35 @@
         .payment-methods .form-check-input:checked~.form-check-label {
             color: #0d6efd;
         }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-overlay .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .loading-overlay p {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+
+        .billing-form {
+            position: relative;
+        }
     </style>
 
     <!-- Add the necessary scripts -->
@@ -383,6 +419,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.sticky.js"></script>
     <script src="js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 
     <script>
         // Get quantity from URL parameters
@@ -394,7 +431,7 @@
         // Initialize order details
         document.addEventListener('DOMContentLoaded', function () {
             const quantity = getQueryParam('quantity') || 1;
-            const pricePerUnit = 50;
+            const pricePerUnit = 3990;
             const totalAmount = quantity * pricePerUnit;
 
             document.getElementById('order-quantity').textContent = quantity;
@@ -407,9 +444,9 @@
 
             const totalAmount = parseFloat(document.getElementById('total-amount').textContent);
             const options = {
-                key: 'rzp_live_tGJjXr7rvi6keg', // Replace with your Razorpay key
+                key: 'rzp_test_vjJuid6KjiD8Nz', // Replace with your Razorpay key rzp_live_tGJjXr7rvi6keg
                 amount: totalAmount * 100, // Amount in smallest currency unit
-                currency: 'USD',
+                currency: 'INR',
                 name: 'Dia-Free Supplement',
                 description: 'Purchase of Dia-Free Supplement',
                 handler: function (response) {
@@ -434,10 +471,99 @@
         });
 
         function handlePaymentSuccess(response) {
-            // Handle the successful payment response
-            alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
-            // You can redirect to a success page or show a success message
-            window.location.href = 'success.html';
+            // Show loading overlay
+            document.getElementById('loading-overlay').classList.remove('d-none');
+
+            // Disable the form while processing
+            const form = document.getElementById('billing-form');
+            const inputs = form.getElementsByTagName('input');
+            for (let input of inputs) {
+                input.disabled = true;
+            }
+
+            // Gather form data
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const country = document.getElementById('country').value;
+            const quantity = document.getElementById('order-quantity').textContent;
+            const totalAmount = document.getElementById('total-amount').textContent;
+
+            // Create form data for email
+            const formData = new FormData();
+
+            // Add FormSubmit specific configurations
+            formData.append('_subject', 'New Dia-Free Order!');
+            formData.append('_template', 'table');
+            formData.append('_captcha', 'false');
+
+            // Order details
+            formData.append('Payment ID', response.razorpay_payment_id);
+            formData.append('Customer Name', `${firstName} ${lastName}`);
+            formData.append('Email', email);
+            formData.append('Phone', phone);
+            formData.append('Address', address);
+            formData.append('City', city);
+            formData.append('Country', country);
+            formData.append('Quantity', quantity);
+            formData.append('Total Amount', `₹${totalAmount}`);
+
+            // Send email using FormSubmit
+            fetch('https://formsubmit.co/ajax/israelitesshopping171@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: 'New Dia-Free Order!',
+                    _template: 'table',
+                    _captcha: false,
+                    payment_id: response.razorpay_payment_id,
+                    customer_name: `${firstName} ${lastName}`,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    city: city,
+                    country: country,
+                    quantity: quantity,
+                    total_amount: `₹${totalAmount}`
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Hide loading overlay
+                    document.getElementById('loading-overlay').classList.add('d-none');
+                    // Show success message and redirect
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Successful!',
+                        text: 'Thank you for your purchase! Order confirmation has been sent to your email.',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        window.location.href = 'index.html';
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Hide loading overlay
+                    document.getElementById('loading-overlay').classList.add('d-none');
+                    // Show error message and redirect
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Partially Successful',
+                        text: 'Payment successful but there was an error sending the confirmation email. Please contact support.',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        window.location.href = 'index.html';
+                    });
+                });
         }
     </script>
 

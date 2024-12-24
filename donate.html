@@ -169,7 +169,7 @@ https://templatemo.com/tm-581-kind-heart-charity
                             </div>
 
                             <div class="pricing-section mb-4">
-                                <h4>Price: $50.00 per unit</h4>
+                                <h4>Price: ₹3990.00 per unit</h4>
                                 <div class="quantity-selector d-flex align-items-center mt-3">
                                     <label for="quantity" class="me-3">Quantity:</label>
                                     <div class="input-group" style="width: 150px;">
@@ -182,16 +182,13 @@ https://templatemo.com/tm-581-kind-heart-charity
                                     </div>
                                 </div>
                                 <p class="total-price mt-3">
-                                    Total: <span id="total-price" class="fw-bold">$50.00</span>
+                                    Total: <span id="total-price" class="fw-bold">₹3990.00</span>
                                 </p>
                             </div>
 
                             <div class="action-buttons">
                                 <button onclick="proceedToCheckout()" class="btn btn-primary btn-lg w-100 mb-3">
                                     Buy Now
-                                </button>
-                                <button onclick="addToCart()" class="btn btn-outline-primary btn-lg w-100">
-                                    Add to Cart
                                 </button>
                             </div>
                         </div>
@@ -206,9 +203,9 @@ https://templatemo.com/tm-581-kind-heart-charity
         // Razorpay payment integration script
         function updateTotalPrice() {
             var quantity = document.getElementById('product-quantity').value;
-            var unitPrice = 50; // $50 per unit
+            var unitPrice = 3990; // $50 per unit
             var totalPrice = quantity * unitPrice;
-            document.getElementById('total-price').innerText = '$' + totalPrice.toFixed(2);
+            document.getElementById('total-price').innerText = '₹' + totalPrice.toFixed(2);
         }
 
         document.getElementById('billing-form').addEventListener('submit', function (e) {
@@ -216,8 +213,8 @@ https://templatemo.com/tm-581-kind-heart-charity
 
             var options = {
                 "key": "rzp_live_tGJjXr7rvi6keg", // Replace with your Razorpay API key
-                "amount": parseFloat(document.getElementById('total-price').innerText.replace('$', '')) * 100, // Amount in paise
-                "currency": "USD",
+                "amount": parseFloat(document.getElementById('total-price').innerText.replace('₹', '')) * 100, // Amount in paise
+                "currency": "INR",
                 "name": "Dia-Free Supplement",
                 "description": "Order for Dia-Free Supplement",
                 "handler": function (response) {
@@ -244,10 +241,10 @@ https://templatemo.com/tm-581-kind-heart-charity
 
     <script>
         function updateTotalPrice() {
-            const pricePerUnit = 50;
+            const pricePerUnit = 3990;
             const quantity = document.getElementById("product-quantity").value;
             const totalPrice = pricePerUnit * quantity;
-            document.getElementById("total-price").textContent = `$${totalPrice.toFixed(2)}`;
+            document.getElementById("total-price").textContent = `₹${totalPrice.toFixed(2)}`;
         }
     </script>
 
@@ -285,9 +282,9 @@ https://templatemo.com/tm-581-kind-heart-charity
 
         function updateTotalPrice() {
             const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            const pricePerUnit = 50;
+            const pricePerUnit = 3990;
             const total = quantity * pricePerUnit;
-            document.getElementById('total-price').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('total-price').textContent = `₹${total.toFixed(2)}`;
         }
 
         function proceedToCheckout() {
