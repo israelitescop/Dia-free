@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dia-Free - Billing</title>
+    <!-- CSS FILES -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-kind-heart-charity.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-12 d-flex flex-wrap">
+                    <p class="d-flex me-4 mb-0">
+                        <i class="bi-geo-alt me-2"></i>
+                        Begumpet, Hyderabad, Telangana
+                    </p>
+
+                    <p class="d-flex mb-0">
+                        <i class="bi-envelope me-2"></i>
+
+                        <a href="mailto:hello@israelitesshoppingnetwork.com">
+                            hello@israelitesshoppingnetwork.com
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
+                    <ul class="social-icon">
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-twitter"></a>
+                        </li>
+
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-facebook"></a>
+                        </li>
+
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-instagram"></a>
+                        </li>
+
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-youtube"></a>
+                        </li>
+
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-whatsapp"></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="./realimg/logo.png" class="logo img-fluid" alt="">
+                <span>
+                    Dia-Free
+                    <small>No Side Effects</small>
+                </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="index.html#section_1">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="index.html#section_2">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="index.html#section_3">Benefits</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="index.html#section_4">Contact</a>
+                    </li>
+
+                    <li class="nav-item ms-3">
+                        <a class="nav-link custom-btn custom-border-btn btn" href="donate.html">Buy Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Add a page title banner -->
+        <section class="page-title-section bg-light py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h1 class="display-4 fw-bold text-primary mb-3">Complete Your Order</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="donate.html">Product</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="billing-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <!-- Order Summary Card -->
+                    <div class="col-lg-4 col-12 mb-5">
+                        <div class="order-summary bg-white p-4 rounded-lg shadow-sm">
+                            <h3 class="h4 mb-4 pb-3 border-bottom">Order Summary</h3>
+                            <div class="product-info mb-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="./realimg/five.jpg" alt="Dia-Free" class="img-thumbnail"
+                                        style="width: 80px;">
+                                    <div class="ms-3">
+                                        <h5 class="mb-1">Dia-Free Supplement</h5>
+                                        <p class="text-muted mb-0">Quantity: <span id="order-quantity">0</span></p>
+                                    </div>
+                                </div>
+                                <div class="price-details">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Price per unit:</span>
+                                        <span>$50.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Subtotal:</span>
+                                        <span id="subtotal">$0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Shipping:</span>
+                                        <span class="text-success">Free</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between pt-3 border-top mt-3">
+                                        <strong>Total Amount:</strong>
+                                        <strong class="text-primary">$<span id="total-amount">0.00</span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billing Form -->
+                    <div class="col-lg-8 col-12">
+                        <div class="billing-form bg-white p-4 rounded-lg shadow-sm">
+                            <h3 class="h4 mb-4">Billing Details</h3>
+                            <form id="billing-form" class="custom-form">
+                                <div class="row g-3">
+                                    <!-- Personal Info -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="col-12">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">City</label>
+                                        <input type="text" class="form-control" id="city" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Country</label>
+                                        <select class="form-control" id="country" required>
+                                            <option value="">Select Country</option>
+                                            <option value="IN">India</option>
+                                            <option value="US">United States</option>
+                                            <!-- Add more countries as needed -->
+                                        </select>
+                                    </div>
+
+                                    <!-- Payment Method -->
+                                    <div class="col-12 mt-4">
+                                        <h4 class="h5 mb-3">Payment Method</h4>
+                                        <div class="payment-methods">
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="radio" name="payment"
+                                                    id="razorpay" checked>
+                                                <label class="form-check-label d-flex align-items-center"
+                                                    for="razorpay">
+                                                    <i class="bi bi-credit-card me-2"></i>
+                                                    Pay with Razorpay
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                                            Complete Purchase
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Copy the same footer from donate.html -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-12 mb-4">
+                    <img src="./realimg/logo.png" class="logo img-fluid" alt="">
+                    <p class="footer-menu-link">Dia-Free</p>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <h5 class="site-footer-title mb-3">Quick Links</h5>
+
+                    <ul class="footer-menu">
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Our Story</a></li>
+
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Benefits</a></li>
+
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Contact</a></li>
+
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Buy Now</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mx-auto">
+                    <h5 class="site-footer-title mb-3">Contact Infomation</h5>
+
+                    <p class="text-white d-flex mb-2">
+                        <i class="bi-telephone me-2"></i>
+
+                        <a href="tel: 120-240-9600" class="site-footer-link">
+                            120-240-9600
+                        </a>
+                    </p>
+
+                    <p class="text-white d-flex">
+                        <i class="bi-envelope me-2"></i>
+
+                        <a href="mailto:hello@israelitesshoppingnetwork.com" class="site-footer-link">
+                            hello@israelitesshoppingnetwork.com
+                        </a>
+                    </p>
+
+                    <p class="text-white d-flex mt-3">
+                        <i class="bi-geo-alt me-2"></i>
+                        Begumpet, Hyderabad, Telangana
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="site-footer-bottom">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-7 col-12">
+                        <p class="copyright-text mb-0">Copyright © 2036 <a href="#">Kind Heart</a> Charity Org.
+                            Design: <a href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-5 col-12 d-flex justify-content-center align-items-center mx-auto">
+                        <ul class="social-icon">
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-twitter"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-facebook"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-instagram"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-linkedin"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="https://youtube.com/templatemo" class="social-icon-link bi-youtube"></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add custom styles -->
+    <style>
+        .billing-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+
+        .page-title-section {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        }
+
+        .order-summary,
+        .billing-form {
+            transition: transform 0.3s ease;
+        }
+
+        .order-summary:hover,
+        .billing-form:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+        }
+
+        .btn-primary {
+            padding: 1rem 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-methods .form-check {
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-methods .form-check-input:checked~.form-check-label {
+            color: #0d6efd;
+        }
+    </style>
+
+    <!-- Add the necessary scripts -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- ...existing scripts... -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/custom.js"></script>
+
+    <script>
+        // Get quantity from URL parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Initialize order details
+        document.addEventListener('DOMContentLoaded', function () {
+            const quantity = getQueryParam('quantity') || 1;
+            const pricePerUnit = 50;
+            const totalAmount = quantity * pricePerUnit;
+
+            document.getElementById('order-quantity').textContent = quantity;
+            document.getElementById('total-amount').textContent = totalAmount.toFixed(2);
+        });
+
+        // Handle form submission and payment
+        document.getElementById('billing-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const totalAmount = parseFloat(document.getElementById('total-amount').textContent);
+            const options = {
+                key: 'rzp_live_tGJjXr7rvi6keg', // Replace with your Razorpay key
+                amount: totalAmount * 100, // Amount in smallest currency unit
+                currency: 'USD',
+                name: 'Dia-Free Supplement',
+                description: 'Purchase of Dia-Free Supplement',
+                handler: function (response) {
+                    // Handle successful payment
+                    handlePaymentSuccess(response);
+                },
+                prefill: {
+                    name: document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    contact: document.getElementById('phone').value
+                },
+                notes: {
+                    address: document.getElementById('address').value
+                },
+                theme: {
+                    color: '#528FF0'
+                }
+            };
+
+            const razorpayInstance = new Razorpay(options);
+            razorpayInstance.open();
+        });
+
+        function handlePaymentSuccess(response) {
+            // Handle the successful payment response
+            alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
+            // You can redirect to a success page or show a success message
+            window.location.href = 'success.html';
+        }
+    </script>
+
+</body>
+
+</html>
