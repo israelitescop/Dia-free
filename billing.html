@@ -140,7 +140,7 @@
                                 <div class="price-details">
                                     <div class="d-flex justify-content-between mb-2">
                                         <span>Price per unit:</span>
-                                        <span>$3990.00</span>
+                                        <span>₹3,990.00</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <span>Subtotal:</span>
@@ -437,15 +437,16 @@
         document.getElementById('billing-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const totalAmount = parseFloat(document.getElementById('total-amount').textContent);
+            // Fix: Get total amount and properly parse it
+            const amount = parseFloat(document.getElementById('total-amount').textContent.replace(/,/g, ''));
+
             const options = {
-                key: 'rzp_live_tGJjXr7rvi6keg', // Replace with your Razorpay key rzp_live_tGJjXr7rvi6keg  rzp_test_vjJuid6KjiD8Nz
-                amount: totalAmount * 100, // Amount in smallest currency unit
+                key: 'rzp_test_vjJuid6KjiD8Nz', // Replace with your Razorpay key
+                amount: Math.round(amount * 100), // Convert to paise and ensure it's an integer
                 currency: 'INR',
                 name: 'Dia-Free Supplement',
                 description: 'Purchase of Dia-Free Supplement',
                 handler: function (response) {
-                    // Handle successful payment
                     handlePaymentSuccess(response);
                 },
                 prefill: {
@@ -454,7 +455,8 @@
                     contact: document.getElementById('phone').value
                 },
                 notes: {
-                    address: document.getElementById('address').value
+                    address: document.getElementById('address').value,
+                    quantity: document.getElementById('order-quantity').textContent
                 },
                 theme: {
                     color: '#528FF0'
@@ -465,46 +467,27 @@
             razorpayInstance.open();
         });
 
+        // Replace the handlePaymentSuccess function with this updated version:
         function handlePaymentSuccess(response) {
             // Show loading overlay
             document.getElementById('loading-overlay').classList.remove('d-none');
 
-            // Disable the form while processing
-            const form = document.getElementById('billing-form');
-            const inputs = form.getElementsByTagName('input');
-            for (let input of inputs) {
-                input.disabled = true;
-            }
-
             // Gather form data
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-            const city = document.getElementById('city').value;
-            const country = document.getElementById('country').value;
-            const quantity = document.getElementById('order-quantity').textContent;
-            const totalAmount = document.getElementById('total-amount').textContent;
-
-            // Create form data for email
-            const formData = new FormData();
-
-            // Add FormSubmit specific configurations
-            formData.append('_subject', 'New Dia-Free Order!');
-            formData.append('_template', 'table');
-            formData.append('_captcha', 'false');
-
-            // Order details
-            formData.append('Payment ID', response.razorpay_payment_id);
-            formData.append('Customer Name', `${firstName} ${lastName}`);
-            formData.append('Email', email);
-            formData.append('Phone', phone);
-            formData.append('Address', address);
-            formData.append('City', city);
-            formData.append('Country', country);
-            formData.append('Quantity', quantity);
-            formData.append('Total Amount', `₹${totalAmount}`);
+            const formData = {
+                _subject: 'New Dia-Free Order!',
+                _template: 'table',
+                _captcha: false,
+                payment_id: response.razorpay_payment_id,
+                customer_name: `${firstName.value} ${lastName.value}`,
+                email: email.value,
+                phone: phone.value,
+                address: address.value,
+                city: city.value,
+                country: country.value,
+                quantity: document.getElementById('order-quantity').textContent,
+                total_amount: `₹${document.getElementById('total-amount').textContent}`,
+                order_date: new Date().toLocaleString()
+            };
 
             // Send email using FormSubmit
             fetch('https://formsubmit.co/ajax/72cbb4b2a2daec6e7b0347a2e2b9bfa8', {
@@ -513,53 +496,68 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    _subject: 'New Dia-Free Order!',
-                    _template: 'table',
-                    _captcha: false,
-                    payment_id: response.razorpay_payment_id,
-                    customer_name: `${firstName} ${lastName}`,
-                    email: email,
-                    phone: phone,
-                    address: address,
-                    city: city,
-                    country: country,
-                    quantity: quantity,
-                    total_amount: `₹${totalAmount}`
-                })
+                body: JSON.stringify(formData)
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    console.log('Success:', data);
                     // Hide loading overlay
                     document.getElementById('loading-overlay').classList.add('d-none');
-                    // Show success message and redirect
+
+                    // Show success message using SweetAlert2
                     Swal.fire({
                         icon: 'success',
-                        title: 'Order Successful!',
-                        text: 'Thank you for your purchase! Order confirmation has been sent to your email.',
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then(() => {
-                        window.location.href = 'index.html';
+                        title: 'Order Successfully Placed!',
+                        html: `
+                        <p>Payment ID: ${response.razorpay_payment_id}</p>
+                        <p>Order confirmation has been sent to your email.</p>
+                    `,
+                        confirmButtonText: 'Continue',
+                        allowOutsideClick: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'index.html';
+                        }
                     });
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // Hide loading overlay
+                    // Handle error
                     document.getElementById('loading-overlay').classList.add('d-none');
-                    // Show error message and redirect
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Partially Successful',
-                        text: 'Payment successful but there was an error sending the confirmation email. Please contact support.',
-                        showConfirmButton: false,
-                        timer: 2000
+                        title: 'Order Partially Complete',
+                        text: 'Payment successful but there was an error sending the confirmation. Please contact support with your payment ID: ' + response.razorpay_payment_id,
+                        confirmButtonText: 'OK',
+                        allowOutsideClick: false
                     }).then(() => {
                         window.location.href = 'index.html';
                     });
                 });
         }
+
+        // Add this new utility function to format currency
+        function formatCurrency(amount) {
+            return amount.toLocaleString('en-IN', {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            });
+        }
+
+        // Update the order summary in real-time when quantity changes
+        document.addEventListener('DOMContentLoaded', function () {
+            const quantity = getQueryParam('quantity') || 1;
+            const pricePerUnit = 3990;
+            const totalAmount = quantity * pricePerUnit;
+
+            document.getElementById('order-quantity').textContent = quantity;
+            document.getElementById('subtotal').textContent = formatCurrency(totalAmount);
+            document.getElementById('total-amount').textContent = formatCurrency(totalAmount);
+        });
     </script>
 
 </body>
